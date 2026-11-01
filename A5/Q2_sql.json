@@ -1,0 +1,142 @@
+[
+    {
+        "id": 0,
+        "question": "Previous Run",
+        "predicted": "select avg(unloading_time_hours) from cargo_handling where operation_type = argentina and operation_date between 2021-01-01 and 2021-01-02",
+        "gold": "select avg(unloading_time_hours) from cargo_handling join ports on cargo_handling.port_id = ports.port_id where ports.country = argentina and cargo_handling.operation_type = unloading",
+        "correct": false
+    },
+    {
+        "id": 1,
+        "question": "Previous Run",
+        "predicted": "select count(*) from frameworks where country in (uae, saudi arabia, egypt) and type = blockchain",
+        "gold": "select count(*) from frameworks where country in (uae, saudi arabia, egypt) and type = blockchain",
+        "correct": true
+    },
+    {
+        "id": 2,
+        "question": "Previous Run",
+        "predicted": "insert into humanitarian_aid (disaster_id, country_name, aid_amount, aid_date) values (301, bangladesh, 50000, 2021-12-25), (302, pakistan, 75000, 2021-12-27), (303, n tm",
+        "gold": "insert into humanitarian_aid (disaster_id, country_name, aid_amount, aid_date) values (301, bangladesh, 50000, 2021-12-25), (302, pakistan, 75000, 2021-12-27), (303, nepal, 60000, 2021-12-30)",
+        "correct": false
+    },
+    {
+        "id": 3,
+        "question": "Previous Run",
+        "predicted": "select sum(case when t.products.is_organic = true then 1 else 0 end) / count(*) * 100 from products from products t on t.product_id = products.product_id where products.category = hair care and products.country = france",
+        "gold": "select (count(*) * 100.0 / (select count(*) from products where category = hair care and country = france)) as percentage from products where is_organic = true and category = hair care and country = france",
+        "correct": false
+    },
+    {
+        "id": 4,
+        "question": "Previous Run",
+        "predicted": "select avg(rating) from hotel_ratings where category = budget",
+        "gold": "select avg(rating) from hotel_ratings where category = budget",
+        "correct": true
+    },
+    {
+        "id": 5,
+        "question": "Previous Run",
+        "predicted": "select routeid, count(stopid) from routestops group by routeid",
+        "gold": "select routeid, count(distinct stopid) as stopcount from routestops group by routeid",
+        "correct": false
+    },
+    {
+        "id": 6,
+        "question": "Previous Run",
+        "predicted": "select project_name, location, offset_amount from carbon_offset_initiatives where start_date >= 2021-01-01 and start_date < 2022-01-01",
+        "gold": "select project_name, location, offset_amount, start_date, lag(offset_amount) over (order by start_date) as previous_offset_amount from carbon_offset_initiatives where start_date >= 2021-01-01",
+        "correct": false
+    },
+    {
+        "id": 7,
+        "question": "Previous Run",
+        "predicted": "select category, avg(quantity) as avg_quantity from sales group by category join stores on stores.location = us",
+        "gold": "select category, avg(quantity) as avg_sales_per_day from sales join stores on sales.store = stores.name where stores.location = us group by category",
+        "correct": false
+    },
+    {
+        "id": 8,
+        "question": "Previous Run",
+        "predicted": "select max(ice_thickness) from ice_thickness_data where location = greenland and year = 2021",
+        "gold": "select max(ice_thickness) from ice_thickness_data where location = greenland and year = 2021",
+        "correct": true
+    },
+    {
+        "id": 9,
+        "question": "Previous Run",
+        "predicted": "select of.farm_name from organic_farms of join pest_report pr on of.farm_name = pr.farm_name where of.region = central america and pr.year = 2021 and pr.pest = whitefly",
+        "gold": "select distinct of.farm_name as farm_names from organic_farms of join pest_report pr on of.farm_name = pr.farm_name where of.region = central america and pr.pest = whitefly and of.year = 2021",
+        "correct": false
+    },
+    {
+        "id": 10,
+        "question": "What is the average journey time in minutes for shared bikes in New York?",
+        "predicted": "SELECT AVG(journey_duration_minutes) FROM shared_bikes",
+        "gold": "SELECT AVG(journey_duration_minutes) FROM shared_bikes WHERE journey_start_time >= '2022-01-01 00:00:00' AND journey_end_time <= '2022-01-01 23:59:59';",
+        "correct": false
+    },
+    {
+        "id": 11,
+        "question": "Count the number of students who received accommodations in the last 3 months and group them by the accommodation type.",
+        "predicted": "SELECT accommodation_type, COUNT(student_id) FROM accommodation WHERE accommodation_date >= (2022 - INTERVAL '3 months') AND accommodation_date < (2022 - INTERVAL '1 month') GROUP BY accommodation_type",
+        "gold": "SELECT accommodation_type, COUNT(*) as count FROM accommodation WHERE accommodation_date >= DATEADD(month, -3, GETDATE()) GROUP BY accommodation_type;",
+        "correct": false
+    },
+    {
+        "id": 12,
+        "question": "What is the average time to resolution for cases that went to trial, by type and year, for violent crimes?",
+        "predicted": "SELECT case_type, year, AVG(time_to_resolution) AS avg_time_to_resolution FROM violent_crimes_trial WHERE case_type IN ('Murder', 'Robberybery') GROUP BY case_type, year",
+        "gold": "SELECT case_type, year, AVG(time_to_resolution) as avg_time_to_resolution FROM violent_crimes_trial WHERE time_to_resolution IS NOT NULL AND case_type LIKE '%Violent%' GROUP BY case_type, year;",
+        "correct": false
+    },
+    {
+        "id": 13,
+        "question": "What is the incidence rate of tuberculosis in Eastern Europe since 2015?",
+        "predicted": "SELECT tb1.rate FROM tb1 WHERE tb1.region = 'Eastern Europe' AND tb1.year >= 2015",
+        "gold": "SELECT country, AVG(rate) FROM tb WHERE region = 'Eastern Europe' AND year >= 2015 GROUP BY country;",
+        "correct": false
+    },
+    {
+        "id": 14,
+        "question": "What is the average project timeline for residential buildings in New York?",
+        "predicted": "SELECT AVG(days) FROM project_timeline WHERE building_type = 'Residential' AND city = 'New York'",
+        "gold": "SELECT AVG(days) FROM project_timeline WHERE building_type = 'Residential' AND city = 'New York';",
+        "correct": true
+    },
+    {
+        "id": 15,
+        "question": "What is the total revenue generated by each dispensary, sorted by the total revenue in descending order?",
+        "predicted": "SELECT dispensary, SUM(revenue) AS total_revenue FROM RevenueByDispensary GROUP BY dispensary ORDER BY total_revenue DESC",
+        "gold": "SELECT dispensary, SUM(revenue) as total_revenue FROM RevenueByDispensary GROUP BY dispensary ORDER BY total_revenue DESC;",
+        "correct": true
+    },
+    {
+        "id": 16,
+        "question": "List the number of job applications in the 'hr' schema's 'job_applications' table by job location",
+        "predicted": "SELECT job_location, COUNT(*) as job_applications FROM hr.job_applications GROUP BY job_location",
+        "gold": "SELECT job_location, COUNT(*) FROM hr.job_applications GROUP BY job_location;",
+        "correct": false
+    },
+    {
+        "id": 17,
+        "question": "Which AI companies were founded early (before 2013) in 'Europe'?",
+        "predicted": "SELECT name FROM ai_companies WHERE year_founded < 2013 AND region = 'Europe'",
+        "gold": "SELECT name FROM ai_companies WHERE year_founded < 2013 AND region = 'Europe';",
+        "correct": true
+    },
+    {
+        "id": 18,
+        "question": "List the top 5 most popular tourist destinations in South America based on virtual tour usage.",
+        "predicted": "SELECT destination, SUM(usage) as usage_total FROM virtual_tours WHERE destination IN ('Peru', 'Brazil', 'Ecuador') GROUP BY destination ORDER BY usage_total DESC LIMIT 5",
+        "gold": "SELECT destination, SUM(usage) as total_usage FROM virtual_tours GROUP BY destination ORDER BY total_usage DESC LIMIT 5;",
+        "correct": false
+    },
+    {
+        "id": 19,
+        "question": "Delete the record of the student with the lowest mental health score.",
+        "predicted": "DELETE FROM students WHERE mental_health_score = (SELECT MIN(mental_health_score) FROM students)",
+        "gold": "DELETE FROM students WHERE student_id = (SELECT MIN(student_id) FROM students);",
+        "correct": false
+    }
+]
